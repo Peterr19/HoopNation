@@ -1,9 +1,23 @@
 <script setup>
+import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useArticles } from '../stores/articleStore.js'
 import ArticleList from '../components/ArticleList.vue'
 
 const { articles } = useArticles()
+
+const searchQuery = ref('')
+
+const filteredArticles = computed(() => {
+  const query = searchQuery.value.trim().toLowerCase()
+
+  return articles.value.filter(article => {
+    const searchableText =
+      `${article.title} ${article.summary}`.toLowerCase()
+
+    return searchableText.includes(query)
+  })
+})
 </script>
 
 <template>
@@ -32,15 +46,22 @@ const { articles } = useArticles()
       <p class="orange-text">EXPLORE NBA HISTORY</p>
       <h2>Stories</h2>
 
-      <ArticleList :articles="articles" />
+      <label for="article-search">Search articles</label>
+      <input
+        id="article-search"
+        v-model="searchQuery"
+        type="search"
+        placeholder="Search articles here"
+      />
+
+      <p>{{ filteredArticles.length }} of {{ articles.length }} articles shown.</p>
+
+      <ArticleList
+        v-if="filteredArticles.length"
+        :articles="filteredArticles"
+      />
+
+      <p v-else>No articles match your search.</p>
     </section>
   </div>
 </template>
-
-<script>
-import { RouterLink } from 'vue-router'
-
-export default {
-  components: { RouterLink }
-}
-</script>
