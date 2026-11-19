@@ -190,5 +190,12 @@ font-weight:bold;
 .skip-link:focus { top: 12px; }
 h1 { overflow-wrap: anywhere; }
 
-
+/*TBR*/
+@media (max-width: 700px) {
+  .header { padding: 20px; flex-direction: column; }
+  .hero { grid-template-columns: 1fr; padding: 25px }
+  .hero h1 { font-size: 35px; }
+  .article-grid { grid-template-columns: 1fr; }
+  .article-page h1, .editor-page h1 { font-size: 32px; }
+  }
 </style>
