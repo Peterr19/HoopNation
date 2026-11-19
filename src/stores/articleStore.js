@@ -31,9 +31,14 @@ function saveArticle(id, rawTitle, rawCategory, rawSummary, rawBody) {
   return ''
 }
 
+function deleteArticle(id) {
+  articles.value = articles.value.filter(article => article.id !== id)
+}
+
 const articleStore = {
   articles: readonly(articles),
-  saveArticle
+  saveArticle,
+  deleteArticle
 }
 
 export function useArticles() {

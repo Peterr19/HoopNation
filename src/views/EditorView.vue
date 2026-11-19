@@ -1,12 +1,12 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
-import { RouterLink, useRoute, useRouter} from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useArticles } from '../stores/articleStore.js'
 
 const route = useRoute()
 const router = useRouter()
 
-const { articles, saveArticle} = useArticles()
+const { articles, saveArticle, deleteArticle} = useArticles()
 
 const editingArticle = computed(() =>
   articles.value.find(article => article.id === route.query.edit)
@@ -131,6 +131,15 @@ function cancelEditing() {
           >
             View
           </RouterLink>
+
+          <button
+            type="button"
+            class="delete-link"
+            @click="deleteArticle(article.id)"
+          >
+            Delete
+          </button>
+
         </div>
       </div>
     </div>
