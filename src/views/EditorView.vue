@@ -6,7 +6,7 @@ import { useArticles } from '../stores/articleStore.js'
 const route = useRoute()
 const router = useRouter()
 
-const { articles, saveArticle, deleteArticle} = useArticles()
+const { articles, saveArticle, deleteArticle, createArticle} = useArticles()
 
 const editingArticle = computed(() =>
   articles.value.find(article => article.id === route.query.edit)
@@ -139,6 +139,14 @@ function cancelEditing() {
           >
             Delete
           </button>
+
+          <button
+            type="button"
+             class="create-link"
+             @click="createArticle(article.id)"
+             >
+              Create
+            </button>
 
         </div>
       </div>

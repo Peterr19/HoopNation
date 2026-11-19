@@ -151,14 +151,14 @@ nav a.router-link-active { color: orange; }
 .editor-row { background: white; padding: 20px; margin: 12px 0; border-radius: 7px; }
 .editor-row p, .editor-note { color: gray; font-size: 14px; }
 
-.edit-link, .view-link, .delete-link {
+.edit-link, .view-link, .delete-link, .create-link {
   font-family: Arial, sans-serif;
   font-size: 16px;
   cursor: pointer;
   color: #d97706;
 }
 
-.delete-link{
+.delete-link, .create-link{
 font-weight:bold;
 /* figuring out a way to take away the outline on the delete button*/
 }

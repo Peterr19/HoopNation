@@ -35,10 +35,12 @@ function deleteArticle(id) {
   articles.value = articles.value.filter(article => article.id !== id)
 }
 
+//CREATE ARTICLE
 const articleStore = {
   articles: readonly(articles),
   saveArticle,
-  deleteArticle
+  deleteArticle,
+  createArticle
 }
 
 export function useArticles() {
