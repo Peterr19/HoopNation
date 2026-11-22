@@ -1,56 +1,67 @@
 <script setup>
-import { computed } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { ref, computed } from 'vue'
+import { RouterLink } from 'vue-router'
 import { useArticles } from '../stores/articleStore.js'
+import ArticleList from '../components/ArticleList.vue'
 
-const route = useRoute()
 const { articles } = useArticles()
 
-const currentArticle = computed(() =>
-  articles.value.find(article => article.id === route.params.id)
-)
+const searchQuery = ref('')
+
+const filteredArticles = computed(() => {
+  const query = searchQuery.value.trim().toLowerCase()
+
+  return articles.value.filter(article => {
+    const searchableText =
+      `${article.title} ${article.summary}`.toLowerCase()
+
+    return searchableText.includes(query)
+  })
+})
 </script>
 
 <template>
-  <main v-if="currentArticle" class="container article-page">
-    <RouterLink to="/" class="back-link">Back to stories</RouterLink>
+  <div class="container">
+    <section class="hero">
+      <div>
+        <p class="orange-text">THE HISTORY OF BASKETBALL</p>
+        <h1>More than a game.</h1>
+        <p>The players, rivalries and unforgettable moments that shaped the NBA.</p>
 
-    <p class="orange-text">{{ currentArticle.category }}</p>
-    <h1>{{ currentArticle.title }}</h1>
+        <RouterLink
+          :to="'/article/' + articles[0].id"
+          class="orange-button"
+        >
+          Read featured story
+        </RouterLink>
+      </div>
 
-    <p class="article-date">
-      By Editorial Team · {{ currentArticle.date }}
-    </p>
-
-    <div class="article-banner">BEYOND THE BUZZER</div>
-
-    <article class="article-body">
-      <h2>The story behind the moment.</h2>
-
-      <p
-        v-for="paragraph in currentArticle.body"
-        :key="paragraph"
-      >
-        {{ paragraph }}
-      </p>
-    </article>
-
-    <section class="more-stories">
-      <h2>More Stories</h2>
-
-      <RouterLink
-        v-for="article in articles.filter(item => item.id !== currentArticle.id)"
-        :key="article.id"
-        :to="'/article/' + article.id"
-        class="more-link"
-      >
-        {{ article.title }}
-      </RouterLink>
+      <div class="hero-image">
+        <span>FEATURED STORY</span>
+        <h2>MICHEAL<br />JORDAN</h2>
+      </div>
     </section>
-  </main>
 
-  <main v-else class="container">
-    <h1>Article not found</h1>
-    <RouterLink to="/" class="back-link">Back to stories</RouterLink>
-  </main>
+    <section class="stories">
+      <p class="orange-text">EXPLORE NBA HISTORY</p>
+      <h2>Stories</h2>
+
+      <label for="article-search">Search articles</label>
+      <input
+        id="article-search"
+        v-model="searchQuery"
+        type="search"
+        placeholder="Search articles here"
+      />
+
+      <p>{{ filteredArticles.length }} of {{ articles.length }} articles shown.</p>
+
+      <ArticleList
+        v-if="filteredArticles.length"
+        :articles="filteredArticles"
+      />
+
+      <p v-else>No articles match your search.</p>
+    </section>
+  </div>
 </template>

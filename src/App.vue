@@ -12,14 +12,14 @@ watch(() => route.fullPath, async () => {
 </script>
 
 <template>
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-
+<!--Logo takes user home -->
   <div class="website">
     <header class="header">
       <RouterLink to="/" class="logo">HOOP <span>NATION</span></RouterLink>
       <SiteNav />
     </header>
 
+<!--area where pages appear-->
     <main id="main-content" tabindex="-1">
       <RouterView />
     </main>
@@ -52,6 +52,7 @@ body {
 .logo { color: white; font-size: 21px; font-weight: bold; text-decoration: none; }
 .logo span, .footer span { color: orange; }
 
+/* side by side nav and spacing*/
 nav { display: flex; gap: 25px; }
 nav a { color: white; text-decoration: none; }
 nav a.router-link-active { color: orange; }
@@ -101,7 +102,7 @@ nav a.router-link-active { color: orange; }
 
 .hero-image span, .card-image span { color: #f28c28; font-size: 13px; font-weight: bold; }
 .hero-image h2 { font-size: 45px; }
-.stories { padding: 55px 0; }
+.stories { padding: 30px ; }
 .stories h2, .more-stories h2 { font-size: 30px; }
 
 .article-grid {
@@ -116,7 +117,6 @@ nav a.router-link-active { color: orange; }
   border-radius: 9px;
   text-decoration: none;
   color: #111827;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
 }
 
 .card-image { height: 160px;display: flex; align-items: flex-end; padding: 15px; }
@@ -177,18 +177,6 @@ font-weight:bold;
 .footer p { color: #9ca3af; }
 
 
-.skip-link {
-  position: absolute;
-  left: 16px;
-  top: -100px;
-  background: white;
-  color: #111827;
-  padding: 12px;
-  z-index: 10;
-}
-
-.skip-link:focus { top: 12px; }
-h1 { overflow-wrap: anywhere; }
 
 /*TBR*/
 @media (max-width: 700px) {

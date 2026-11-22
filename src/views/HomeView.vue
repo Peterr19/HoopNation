@@ -4,17 +4,23 @@ import { RouterLink } from 'vue-router'
 import { useArticles } from '../stores/articleStore.js'
 import ArticleList from '../components/ArticleList.vue'
 
+//access to articles
 const { articles } = useArticles()
 
+//store searches in an empty reactive value
 const searchQuery = ref('')
 
+//get what has been searched
 const filteredArticles = computed(() => {
   const query = searchQuery.value.trim().toLowerCase()
 
+//check all articles
   return articles.value.filter(article => {
+  //search title and summary
     const searchableText =
       `${article.title} ${article.summary}`.toLowerCase()
 
+//if text matches search then it stays, else it is left out
     return searchableText.includes(query)
   })
 })

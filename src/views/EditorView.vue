@@ -6,12 +6,16 @@ import { useArticles } from '../stores/articleStore.js'
 const route = useRoute()
 const router = useRouter()
 
-const { articles, saveArticle, deleteArticle, createArticle} = useArticles()
+//Connects this page to functions stored in articleStore
+const { articles, saveArticle, deleteArticle} = useArticles()
 
+
+//defines which article the user wants to edit
 const editingArticle = computed(() =>
   articles.value.find(article => article.id === route.query.edit)
 )
 
+//stores what the user wants to edit
 const draft = ref({
   title: '',
   category: '',
@@ -19,24 +23,29 @@ const draft = ref({
   body: []
 })
 
+
 const errorMessage = ref('')
 
+//
 watch(
   editingArticle,
   article => {
     errorMessage.value = ''
 
+//checks whether the article exists and filling the draft
     if (article) {
       draft.value = {
         title: article.title,
         category: article.category,
         summary: article.summary,
-        body: [...article.body]
+        body: [...article.body] //copy
       }
     }
   }
 )
 
+
+//save the changes
 function saveChanges() {
   if (!editingArticle.value) return
 
@@ -53,6 +62,7 @@ function saveChanges() {
   }
 }
 
+//back to editor if saving is successful
 function cancelEditing() {
   router.push('/editor')
 }
@@ -65,7 +75,7 @@ function cancelEditing() {
     <p class="editor-intro">
       View and organise the stories featured on Beyond the Buzzer.
     </p>
-
+<!--display form only if an article is selected-->
     <div v-if="editingArticle" class="editor-form">
       <h2>Edit Article</h2>
 
@@ -80,14 +90,15 @@ function cancelEditing() {
 
       <label>Article paragraphs</label>
 
+<!--connects textarea to correspondng paragraph  in array -->
       <textarea
         v-for="(paragraph, index) in draft.body"
         :key="index"
         v-model="draft.body[index]"
         :aria-label="'Article paragraph ' + (index + 1)"
-        rows="4"
       ></textarea>
 
+<!--runs errorMessage func if a field is empty-->
       <p v-if="errorMessage" role="alert">{{ errorMessage }}</p>
 
       <div class="editor-actions">
@@ -100,13 +111,13 @@ function cancelEditing() {
         </button>
       </div>
     </div>
-
+<!--if no article is selected-->
     <div v-else>
       <div class="editor-heading">
         <h2>Current Articles</h2>
         <span>{{ articles.length }} Articles</span>
       </div>
-
+<!--each article has a unique id to tack-->
       <div
         v-for="article in articles"
         :key="article.id"
@@ -139,15 +150,6 @@ function cancelEditing() {
           >
             Delete
           </button>
-
-          <button
-            type="button"
-             class="create-link"
-             @click="createArticle(article.id)"
-             >
-              Create
-            </button>
-
         </div>
       </div>
     </div>
