@@ -43,8 +43,7 @@ const filteredArticles = computed(() => {
       </div>
 
       <div class="hero-image">
-        <span>FEATURED STORY</span>
-        <h2>MICHEAL<br />JORDAN</h2>
+      <img src="../assets/images/jordan.jpg" alt= "Micheal Jordan Dunk">
       </div>
     </section>
 

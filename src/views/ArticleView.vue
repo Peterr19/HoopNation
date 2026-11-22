@@ -1,67 +1,48 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { RouterLink } from 'vue-router'
+import { computed } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
 import { useArticles } from '../stores/articleStore.js'
-import ArticleList from '../components/ArticleList.vue'
 
+const route = useRoute()
+
+//access to articles
 const { articles } = useArticles()
 
-const searchQuery = ref('')
-
-const filteredArticles = computed(() => {
-  const query = searchQuery.value.trim().toLowerCase()
-
-  return articles.value.filter(article => {
-    const searchableText =
-      `${article.title} ${article.summary}`.toLowerCase()
-
-    return searchableText.includes(query)
-  })
-})
+//find the article using its id
+const article = computed(() =>
+  articles.value.find(item => item.id === route.params.id))
 </script>
 
 <template>
   <div class="container">
-    <section class="hero">
-      <div>
-        <p class="orange-text">THE HISTORY OF BASKETBALL</p>
-        <h1>More than a game.</h1>
-        <p>The players, rivalries and unforgettable moments that shaped the NBA.</p>
 
-        <RouterLink
-          :to="'/article/' + articles[0].id"
-          class="orange-button"
-        >
-          Read featured story
-        </RouterLink>
+    <!--display article if it exists-->
+    <div v-if="article">
+
+      <p class="orange-text">{{ article.category }}</p>
+
+      <h1>{{ article.title }}</h1>
+
+      <p>{{ article.date }}</p>
+
+      <p>{{ article.summary }}</p>
+
+      <!--display each paragraph of the article-->
+      <div v-for="(paragraph, index) in article.body" :key="index">
+        <p>{{ paragraph }}</p>
       </div>
 
-      <div class="hero-image">
-        <span>FEATURED STORY</span>
-        <h2>MICHEAL<br />JORDAN</h2>
-      </div>
-    </section>
+      <RouterLink to="/" class="orange-button">
+        Back to Home
+      </RouterLink>
 
-    <section class="stories">
-      <p class="orange-text">EXPLORE NBA HISTORY</p>
-      <h2>Stories</h2>
+    </div>
 
-      <label for="article-search">Search articles</label>
-      <input
-        id="article-search"
-        v-model="searchQuery"
-        type="search"
-        placeholder="Search articles here"
-      />
+    <!--if article cannot be found-->
+    <div v-else>
+      <h1>Article not found</h1>
+      <RouterLink to="/">Back to Home</RouterLink>
+    </div>
 
-      <p>{{ filteredArticles.length }} of {{ articles.length }} articles shown.</p>
-
-      <ArticleList
-        v-if="filteredArticles.length"
-        :articles="filteredArticles"
-      />
-
-      <p v-else>No articles match your search.</p>
-    </section>
   </div>
 </template>

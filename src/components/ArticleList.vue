@@ -22,6 +22,7 @@ defineProps({
 
     <!--Displays the article's category inside the card image area-->
       <div class="card-image">
+       <img :src="`/images/${article.id}.jpg`" :alt="article.title">
         <span>{{ article.category }}</span>
       </div>
 

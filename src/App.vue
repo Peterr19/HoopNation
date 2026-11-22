@@ -119,7 +119,7 @@ nav a.router-link-active { color: orange; }
   color: #111827;
 }
 
-.card-image { height: 160px;display: flex; align-items: flex-end; padding: 15px; }
+.card-image { height:160px; padding:0; overflow: hidden; }
 .card-content { padding: 20px; }
 .card-content p { color: grey; line-height: 1.5; }
 
@@ -127,6 +127,20 @@ nav a.router-link-active { color: orange; }
   color: #d97706;
   font-weight: bold;
   text-decoration: none;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+
+}
+
+.card-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 
 .article-page { max-width: 850px; }
