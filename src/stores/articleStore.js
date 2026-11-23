@@ -24,6 +24,31 @@ function saveArticle(id, rawTitle, rawCategory, rawSummary, rawBody) {
     return 'Please complete all article paragraphs.'
   }
 
+  //create a new article
+  if (id === null) {
+    let newId = title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+    let number = 2
+
+    while (articles.value.some(article => article.id === newId)) {
+      newId = title.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + number++
+    }
+
+    articles.value.push({
+      id: newId,
+      title,
+      category,
+      date: new Date().toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }),
+      summary,
+      body
+    })
+
+    return ''
+  }
+
 //search list for article with id matching the one passed
   const article = articles.value.find(item => item.id === id)
 

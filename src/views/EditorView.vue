@@ -26,6 +26,8 @@ const draft = ref({
 
 const errorMessage = ref('')
 
+const isCreating = ref(false)
+
 //
 watch(
   editingArticle,
@@ -44,13 +46,23 @@ watch(
   }
 )
 
+function startCreating() {
+  isCreating.value = true
+  draft.value = {
+    title: '',
+    category: '',
+    summary: '',
+    body: ['']
+  }
+  errorMessage.value = ''
+}
 
 //save the changes
 function saveChanges() {
-  if (!editingArticle.value) return
+  if (!editingArticle.value && !isCreating.value) return
 
   errorMessage.value = saveArticle(
-    editingArticle.value.id,
+    isCreating.value ? null : editingArticle.value.id,
     draft.value.title,
     draft.value.category,
     draft.value.summary,
@@ -58,6 +70,7 @@ function saveChanges() {
   )
 
   if (!errorMessage.value) {
+    isCreating.value = false
     router.push('/editor')
   }
 }
@@ -76,8 +89,8 @@ function cancelEditing() {
       View and organise the stories featured on Beyond the Buzzer.
     </p>
 <!--display form only if an article is selected-->
-    <div v-if="editingArticle" class="editor-form">
-      <h2>Edit Article</h2>
+    <div v-if="editingArticle || isCreating" class="editor-form">
+      <h2>{{ isCreating ? 'Create Article' : 'Edit Article' }}</h2>
 
       <label for="article-title">Title</label>
       <input id="article-title" v-model="draft.title" />
@@ -103,12 +116,9 @@ function cancelEditing() {
 
       <div class="editor-actions">
         <button @click="saveChanges" class="edit-link">
-          Save Changes
+          {{ isCreating ? 'Create Article' : 'Save Changes' }}
         </button>
 
-        <button @click="cancelEditing" class="view-link">
-          Cancel
-        </button>
       </div>
     </div>
 <!--if no article is selected-->
@@ -117,6 +127,11 @@ function cancelEditing() {
         <h2>Current Articles</h2>
         <span>{{ articles.length }} Articles</span>
       </div>
+
+      <button @click="startCreating" class="edit-link">
+        Create Article
+      </button>
+
 <!--each article has a unique id to tack-->
       <div
         v-for="article in articles"
