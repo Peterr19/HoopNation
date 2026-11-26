@@ -1,24 +1,29 @@
 
-# hoop-nation
+# HOOP NATION
 
-This template should help get you started developing with Vue 3 in Vite.
+Hoop Nation is a basketball history webiste focused on the NBA. It allows its users to view things about famous players, legends, teams and rivalries.
+This site is built using Vite and Vue 3
+
+## Features
+- Search articles by title and summary
+- Edit articles
+- View Articles
+- Delete Articles
+
+## Technologies Used
+- Vue
+- Javascript
+- HTML
+- CSS
+- Vite
 
 ## Recommended IDE Setup
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+[IntelliJ IDEA](https://code.visualstudio.com/) + [Vue (Official)]
 
 ## Recommended Browser Setup
 
 - Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
 
 ## Project Setup
 
@@ -37,4 +42,4 @@ npm run dev
 ```sh
 npm run build
 ```
-# HoopNation
+

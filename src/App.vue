@@ -190,9 +190,6 @@ font-weight:bold;
 .footer { text-align: center; padding: 35px 20px; margin-top: 30px; }
 .footer p { color: #9ca3af; }
 
-
-
-/*TBR*/
 @media (max-width: 700px) {
   .header { padding: 20px; flex-direction: column; }
   .hero { grid-template-columns: 1fr; padding: 25px }

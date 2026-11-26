@@ -2,6 +2,7 @@
   <nav aria-label="Main navigation">
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/editor">Editor</RouterLink>
+
   </nav>
 </template>
 
